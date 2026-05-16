@@ -60,68 +60,84 @@ export default function Home() {
 
 {/* NAVBAR */}
 <header className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-md z-50">
-  <nav className="container mx-auto px-12 py-4 flex justify-between items-center">
+  <nav className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-4 flex justify-between items-center">
 
     {/* LOGO */}
     <Link
       href="#home"
-      className="flex items-center gap-4 pl-6 md:pl-10 group"
+      className="flex items-center gap-3 group"
     >
       <img
         src="/images/logo.png"
         alt="Ikhsan Care Logo"
-        className="h-11 w-11 object-contain transition-transform duration-300 group-hover:scale-110"
+        className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 object-contain transition-transform duration-300 group-hover:scale-110"
       />
 
-      <span className="text-2xl font-bold text-green-600 transition-colors duration-300 group-hover:text-green-700">
+      <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-600 group-hover:text-green-700 transition">
         Ikhsan Care
       </span>
     </Link>
 
     {/* MOBILE BUTTON */}
-    <div className="md:hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="text-green-600 text-2xl"
-      >
-        ☰
-      </button>
+    <button
+      onClick={() => setOpen(!open)}
+      className="md:hidden text-green-600 text-3xl p-2 rounded-lg hover:bg-green-50 transition"
+    >
+      ☰
+    </button>
+
+    {/* DESKTOP MENU */}
+    <div className="hidden md:flex gap-6 items-center">
+      <Link href="#home" className="hover:text-green-600 transition">Home</Link>
+      <Link href="#services" className="hover:text-green-600 transition">Order</Link>
+      <Link href="#eco" className="hover:text-green-600 transition">Eco Program</Link>
+      <Link href="#review" className="hover:text-green-600 transition">Reviews</Link>
     </div>
 
-    {/* MENU */}
-    <div
-      className={`${open ? "block" : "hidden"} md:flex gap-6 items-center`}
-    >
+  </nav>
+
+  {/* MOBILE MENU */}
+  <div
+    className={`md:hidden overflow-hidden transition-all duration-300 bg-white border-t ${
+      open ? "max-h-96 py-4" : "max-h-0 py-0"
+    }`}
+  >
+    <div className="flex flex-col px-6 gap-3">
+
       <Link
         href="#home"
-        className="hover:text-green-600 transition"
+        onClick={() => setOpen(false)}
+        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
       >
         Home
       </Link>
 
       <Link
         href="#services"
-        className="hover:text-green-600 transition"
+        onClick={() => setOpen(false)}
+        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
       >
         Order
       </Link>
 
       <Link
         href="#eco"
-        className="hover:text-green-600 transition"
+        onClick={() => setOpen(false)}
+        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
       >
         Eco Program
       </Link>
 
       <Link
         href="#review"
-        className="hover:text-green-600 transition"
+        onClick={() => setOpen(false)}
+        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
       >
         Reviews
       </Link>
-    </div>
 
-  </nav>
+    </div>
+  </div>
 </header>
 
 {/* HERO */}
@@ -176,7 +192,7 @@ className="scroll-mt-28 relative pt-36 pb-32 min-h-[100vh] flex items-center bg-
 
       <div className="mt-6 flex gap-4 flex-wrap">
         <a
-          href="#products"
+          href="https://mart.grab.com/id/id/merchant/apotek-ikhsan-care-powered-by-gdti-jati-padang/6-C63TJVE1AZNYMA"
           className="bg-white text-green-700 hover:bg-gray-100 transition px-6 py-3 rounded-xl shadow-md font-semibold"
         >
           Belanja Sekarang
@@ -355,32 +371,49 @@ className="scroll-mt-28 relative pt-36 pb-32 min-h-[100vh] flex items-center bg-
   </div>
 </section>
 
-      {/* TESTIMONIAL */}
-      <section
-        id="review"
-        className="scroll-mt-19 py-20 bg-white text-center px-6"
-      >
-        <h2 className="text-3xl font-bold mb-12">
-          Customer Reviews
-        </h2>
+  {/* TESTIMONIAL */}
+<section
+  id="review"
+  className="scroll-mt-28 py-20 bg-white text-center px-4 sm:px-6"
+>
+  <motion.h2
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+    className="text-2xl sm:text-3xl font-bold mb-10 sm:mb-12"
+  >
+    Customer Reviews
+  </motion.h2>
 
-        <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="bg-green-50 p-6 rounded-2xl shadow"
-            >
-              <p>"{t.text}"</p>
-              <h4 className="mt-4 font-bold text-green-600">
-                {t.name}
-              </h4>
-              <div className="text-yellow-400 mt-1 tracking-wider">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto">
+
+    {testimonials.map((t, i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        whileHover={{ scale: 1.03 }}
+        className="bg-green-50 p-5 sm:p-6 rounded-2xl shadow-md hover:shadow-xl transition text-left sm:text-center"
+      >
+        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+          "{t.text}"
+        </p>
+
+        <h4 className="mt-4 font-bold text-green-600 text-sm sm:text-base">
+          {t.name}
+        </h4>
+
+        <div className="text-yellow-400 mt-2 tracking-wider text-sm sm:text-base">
           ★★★★★
         </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      </motion.div>
+    ))}
+
+  </div>
+</section>
 
      
 {/* FOOTER */}
@@ -388,9 +421,9 @@ className="scroll-mt-28 relative pt-36 pb-32 min-h-[100vh] flex items-center bg-
 
   {/* 🌸 Decorative background shapes */}
   <div className="absolute inset-0 pointer-events-none">
-    <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-200 rounded-full blur-3xl opacity-40"></div>
-    <div className="absolute top-20 right-0 w-52 h-52 bg-rose-200 rounded-full blur-3xl opacity-40"></div>
-    <div className="absolute bottom-0 left-1/2 w-60 h-60 bg-pink-300 rounded-full blur-3xl opacity-20"></div>
+    <div className="absolute -top-10 -left-10 w-40 h-40 bg-green-200 rounded-full blur-3xl opacity-40"></div>
+    <div className="absolute top-20 right-0 w-52 h-52 bg-green-200 rounded-full blur-3xl opacity-40"></div>
+    <div className="absolute bottom-0 left-1/2 w-60 h-60 bg-green-300 rounded-full blur-3xl opacity-20"></div>
   </div>
 
   {/* 🌸 subtle floral pattern (icon feel) */}

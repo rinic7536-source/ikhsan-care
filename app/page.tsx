@@ -59,32 +59,22 @@ export default function Home() {
     <div className="bg-white text-gray-900">
 
 {/* NAVBAR */}
-<header className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-md z-50">
-  <nav className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-4 flex justify-between items-center">
+<header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-md z-50">
+
+  <nav className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 h-16 flex justify-between items-center">
 
     {/* LOGO */}
-    <Link
-      href="#home"
-      className="flex items-center gap-3 group"
-    >
+    <Link href="#home" className="flex items-center gap-3 group flex-shrink-0">
       <img
         src="/images/logo.png"
         alt="Ikhsan Care Logo"
         className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 object-contain transition-transform duration-300 group-hover:scale-110"
       />
 
-      <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-600 group-hover:text-green-700 transition">
+      <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-600 group-hover:text-green-700 transition whitespace-nowrap">
         Ikhsan Care
       </span>
     </Link>
-
-    {/* MOBILE BUTTON */}
-    <button
-      onClick={() => setOpen(!open)}
-      className="md:hidden text-green-600 text-3xl p-2 rounded-lg hover:bg-green-50 transition"
-    >
-      ☰
-    </button>
 
     {/* DESKTOP MENU */}
     <div className="hidden md:flex gap-6 items-center">
@@ -94,20 +84,31 @@ export default function Home() {
       <Link href="#review" className="hover:text-green-600 transition">Reviews</Link>
     </div>
 
+    {/* MOBILE BUTTON (FIXED ICON STABILITY) */}
+    <button
+      onClick={() => setOpen(!open)}
+      className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-green-50 transition"
+      aria-label="Toggle Menu"
+    >
+      <span className="text-2xl leading-none text-green-600">
+        {open ? "✕" : "☰"}
+      </span>
+    </button>
+
   </nav>
 
-  {/* MOBILE MENU */}
+  {/* MOBILE MENU (SMOOTH + CLEAN) */}
   <div
-    className={`md:hidden overflow-hidden transition-all duration-300 bg-white border-t ${
+    className={`md:hidden overflow-hidden bg-white border-t border-gray-100 transition-all duration-300 ${
       open ? "max-h-96 py-4" : "max-h-0 py-0"
     }`}
   >
-    <div className="flex flex-col px-6 gap-3">
+    <div className="flex flex-col px-6 gap-2">
 
       <Link
         href="#home"
         onClick={() => setOpen(false)}
-        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
+        className="py-2 px-3 rounded-lg hover:bg-green-50 transition"
       >
         Home
       </Link>
@@ -115,7 +116,7 @@ export default function Home() {
       <Link
         href="#services"
         onClick={() => setOpen(false)}
-        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
+        className="py-2 px-3 rounded-lg hover:bg-green-50 transition"
       >
         Order
       </Link>
@@ -123,7 +124,7 @@ export default function Home() {
       <Link
         href="#eco"
         onClick={() => setOpen(false)}
-        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
+        className="py-2 px-3 rounded-lg hover:bg-green-50 transition"
       >
         Eco Program
       </Link>
@@ -131,13 +132,14 @@ export default function Home() {
       <Link
         href="#review"
         onClick={() => setOpen(false)}
-        className="py-2 rounded-lg hover:bg-green-50 px-3 transition"
+        className="py-2 px-3 rounded-lg hover:bg-green-50 transition"
       >
         Reviews
       </Link>
 
     </div>
   </div>
+
 </header>
 
 {/* HERO */}
@@ -371,16 +373,16 @@ className="scroll-mt-28 relative pt-36 pb-32 min-h-[100vh] flex items-center bg-
   </div>
 </section>
 
-  {/* TESTIMONIAL */}
+{/* TESTIMONIAL */}
 <section
   id="review"
   className="scroll-mt-28 py-20 bg-white text-center px-4 sm:px-6"
 >
   <motion.h2
-    initial={{ opacity: 0, y: 40 }}
+    initial={{ opacity: 0, y: 10 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.4 }}
     className="text-2xl sm:text-3xl font-bold mb-10 sm:mb-12"
   >
     Customer Reviews
@@ -391,12 +393,14 @@ className="scroll-mt-28 relative pt-36 pb-32 min-h-[100vh] flex items-center bg-
     {testimonials.map((t, i) => (
       <motion.div
         key={i}
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5, delay: i * 0.1 }}
-        whileHover={{ scale: 1.03 }}
-        className="bg-green-50 p-5 sm:p-6 rounded-2xl shadow-md hover:shadow-xl transition text-left sm:text-center"
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{
+          duration: 0.4,
+          ease: "easeOut",
+        }}
+        className="bg-green-50 p-5 sm:p-6 rounded-2xl shadow-sm text-left sm:text-center"
       >
         <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
           "{t.text}"
@@ -414,7 +418,6 @@ className="scroll-mt-28 relative pt-36 pb-32 min-h-[100vh] flex items-center bg-
 
   </div>
 </section>
-
      
 {/* FOOTER */}
 <footer className="scroll-mt-19 relative overflow-hidden text-gray-500 pt-12 pb-6 bg-gradient-to-br from-green-50 via-white to-green-100">
